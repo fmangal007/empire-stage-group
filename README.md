@@ -2,6 +2,8 @@
 
 Official event website for Empire Stage Group LLC.
 
+**Website created and maintained by Fahim Mangal.**
+
 ## Current featured event
 
 **107th Independence Day of Afghanistan**
@@ -9,8 +11,8 @@ Official event website for Empire Stage Group LLC.
 - Date: Saturday, September 12, 2026
 - Doors open: 7:00 PM
 - Venue: National Conference Center
-- Location: Leesburg, Virginia
-- Featured performers: Naghma and Hasib Sepand
+- Address: 18665 NCC Ring Drive, Leesburg, VA 20176
+- Featured performers: Naghma Jan and Hasib Sepand
 
 ## Local development
 
@@ -19,6 +21,8 @@ npm install
 npm run dev
 ```
 
+Do not expose the Vite development server to the public internet. Keep secrets in local environment files that are excluded by `.gitignore`.
+
 ## Production build
 
 ```bash
@@ -26,6 +30,14 @@ npm run build
 ```
 
 Vite writes the production site to `dist/`.
+
+## Security audit
+
+```bash
+npm run audit
+```
+
+The production website is static. It does not currently use a database, login system, API, or server-side form handler. Cloudflare security headers are defined in `public/_headers`.
 
 ## Cloudflare deployment
 
