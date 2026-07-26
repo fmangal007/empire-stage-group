@@ -1,5 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title desc">
-<title id="title">Hawasana Restaurant</title>
-<desc id="desc">Hawasana Restaurant Special Afghan Food sponsor logo</desc>
-<image width="500" height="500" href="data:image/webp;base64,UklGRgbJAABXRUJQVlA4WAoAAAAQAAA..."/>
+  <title id="title">Hawasana Restaurant</title>
+  <desc id="desc">Hawasana Restaurant Special Afghan Food sponsor logo</desc>
+  <rect width="500" height="500" fill="#fff"/>
+  <g transform="translate(250 130)">
+    <circle cx="-55" cy="0" r="42" fill="#111"/>
+    <circle cx="0" cy="-18" r="46" fill="#c9150b"/>
+    <circle cx="55" cy="0" r="42" fill="#0b8f38"/>
+    <rect x="-62" y="25" width="124" height="72" rx="4" fill="#fff" stroke="#222" stroke-width="4"/>
+    <rect x="-62" y="73" width="124" height="10" fill="#b22234"/>
+    <rect x="-62" y="83" width="124" height="10" fill="#fff"/>
+    <rect x="-62" y="93" width="124" height="10" fill="#b22234"/>
+    <rect x="-62" y="73" width="48" height="30" fill="#3c3b6e"/>
+  </g>
+  <path d="M205 248c18 22 37 30 45 30s27-8 45-30c-8 2-18 1-27-4-7-4-13-10-18-16-5 6-11 12-18 16-9 5-19 6-27 4z" fill="#111"/>
+  <text x="250" y="346" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="54" font-weight="900" letter-spacing="3" fill="#111">HAWASANA</text>
+  <text x="250" y="402" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="39" font-weight="900" letter-spacing="2" fill="#b12626">RESTAURANT</text>
+  <text x="250" y="447" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" letter-spacing="1" fill="#267a51">SPECIAL AFGHAN FOOD</text>
 </svg>
