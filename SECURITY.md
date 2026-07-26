@@ -1,21 +1,13 @@
 # Security Policy
 
-## Supported Versions
+## Supported version
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+The current production version of the Empire Stage Group LLC website is supported with security updates.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+## Reporting a vulnerability
 
-## Reporting a Vulnerability
+Please report website security concerns privately by emailing:
 
-Use this section to tell people how to report a vulnerability.
+**info@empirestagegroup.com**
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Include a clear description of the issue, the affected page or feature, and steps that help reproduce it. Please do not publicly disclose a vulnerability before Empire Stage Group LLC has had a reasonable opportunity to investigate and address it.
