@@ -1,0 +1,91 @@
+name: Final website security maintenance
+
+on:
+  push:
+    paths:
+      - '.github/workflows/final-security-maintenance.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Add creator credit and remove avoidable HTML injection
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          text = text.replace(
+              '<meta name="viewport" content="width=device-width,initial-scale=1" />',
+              '<meta name="viewport" content="width=device-width,initial-scale=1" />\n  <meta name="author" content="Fahim Mangal" />'
+          )
+
+          text = text.replace(
+              '<p class="copy">© <span id="year"></span> Empire Stage Group LLC. <span data-i18n="rights">All rights reserved.</span></p>',
+              '<p class="copy">© <span id="year"></span> Empire Stage Group LLC. <span data-i18n="rights">All rights reserved.</span> <span data-i18n="creatorCredit">Website created by Fahim Mangal.</span></p>'
+          )
+
+          text = text.replace(
+              'followTickets:"Follow & tickets",rights:"All rights reserved."',
+              'followTickets:"Follow & tickets",rights:"All rights reserved.",creatorCredit:"Website created by Fahim Mangal."'
+          )
+          text = text.replace(
+              'followTickets:"ټولنیزې رسنۍ او ټکټونه",rights:"ټول حقوق خوندي دي."',
+              'followTickets:"ټولنیزې رسنۍ او ټکټونه",rights:"ټول حقوق خوندي دي.",creatorCredit:"وېبپاڼه د فهیم منګل له خوا جوړه شوې."'
+          )
+          text = text.replace(
+              'followTickets:"شبکه‌های اجتماعی و بلیت",rights:"تمام حقوق محفوظ است."',
+              'followTickets:"شبکه‌های اجتماعی و بلیت",rights:"تمام حقوق محفوظ است.",creatorCredit:"وب‌سایت توسط فهیم منگل ساخته شده است."'
+          )
+
+          old = '''  if(remaining <= 0){
+            document.getElementById("countdown").innerHTML = `<div class="countdown-box" style="grid-column:1/-1"><strong>${translations[lang].eventStarted}</strong></div>`;
+            return;
+          }'''
+          new = '''  if(remaining <= 0){
+            const countdown = document.getElementById("countdown");
+            const box = document.createElement("div");
+            const message = document.createElement("strong");
+            box.className = "countdown-box";
+            box.style.gridColumn = "1 / -1";
+            message.textContent = translations[lang].eventStarted;
+            box.appendChild(message);
+            countdown.replaceChildren(box);
+            return;
+          }'''
+          if old not in text:
+              raise SystemExit('Countdown block not found')
+          text = text.replace(old, new)
+
+          path.write_text(text, encoding='utf-8')
+
+      - name: Install and lock dependencies
+        run: npm install --ignore-scripts
+
+      - name: Audit high severity vulnerabilities
+        run: npm audit --audit-level=high
+
+      - name: Build production website
+        run: npm run build
+
+      - name: Commit verified changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html package-lock.json
+          git diff --cached --quiet || git commit -m "Add creator credit and complete security maintenance"
+          git push
