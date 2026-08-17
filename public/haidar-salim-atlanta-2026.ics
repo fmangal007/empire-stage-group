@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Empire Stage Group LLC//Haidar Salim Atlanta 2026//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:haidar-salim-atlanta-2026@empirestagegroup.com
+DTSTAMP:20260817T032400Z
+DTSTART:20261024T230000Z
+DTEND:20261025T034500Z
+SUMMARY:Haidar Salim Live Concert Atlanta Georgia USA
+DESCRIPTION:Haidar Salim live concert presented by Empire Stage Group LLC. Tickets: https://www.tickettailor.com/events/empirestagegroupllc/2364052
+LOCATION:Vansh Event Center\, 2960 Northeast Expy\, Chamblee\, GA 30341
+URL:https://www.tickettailor.com/events/empirestagegroupllc/2364052
+END:VEVENT
+END:VCALENDAR
