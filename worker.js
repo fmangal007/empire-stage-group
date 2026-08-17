@@ -10,6 +10,7 @@ const atlantaEvent = {
   ticketUrl: "https://www.tickettailor.com/events/empirestagegroupllc/2364052",
   venue: "Vansh Event Center",
   address: "2960 Northeast Expy, Chamblee, GA 30341",
+  image: "/images/haidar-salim-atlanta.webp",
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Vansh+Event+Center+2960+Northeast+Expy+Chamblee+GA+30341",
   googleCalendarUrl: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haidar%20Salim%20Live%20Concert%20Atlanta%20Georgia%20USA&dates=20261024T230000Z/20261025T034500Z&details=Haidar%20Salim%20live%20concert%20presented%20by%20Empire%20Stage%20Group%20LLC.&location=Vansh%20Event%20Center%2C%202960%20Northeast%20Expy%2C%20Chamblee%2C%20GA%2030341",
 };
@@ -65,6 +66,7 @@ const siteJsonLd = JSON.stringify({
       endDate: "2026-10-24T23:45:00-04:00",
       eventStatus: "https://schema.org/EventScheduled",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      image: atlantaEvent.image,
       location: {
         "@type": "Place",
         name: atlantaEvent.venue,
@@ -101,11 +103,14 @@ const sponsorStyles = `
   .confirmed-sponsor-copy{padding:26px}
   .confirmed-sponsor-copy span{color:var(--gold);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
   .confirmed-sponsor-copy h3{font:clamp(30px,4vw,48px) Georgia;margin:13px 0 0;line-height:1.05}
-  .atlanta-event-card{margin-top:38px;display:grid;grid-template-columns:minmax(240px,.42fr) minmax(0,1fr);border:1px solid rgba(227,184,95,.4);background:radial-gradient(circle at 18% 18%,rgba(227,184,95,.16),transparent 34%),linear-gradient(145deg,#151821,#0c0d12);box-shadow:0 32px 90px rgba(0,0,0,.4);overflow:hidden}
-  .atlanta-date{min-height:360px;display:grid;place-items:center;text-align:center;padding:36px;border-right:1px solid var(--line);background:linear-gradient(180deg,rgba(227,184,95,.08),rgba(0,0,0,.18))}
-  .atlanta-date span{display:block;color:var(--gold);font-size:13px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
-  .atlanta-date strong{display:block;font:clamp(92px,11vw,150px) Georgia;line-height:.85;margin:18px 0 12px}
-  .atlanta-date small{display:block;color:#d7d0c4;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+  .atlanta-event-card{margin-top:38px;display:grid;grid-template-columns:minmax(340px,.72fr) minmax(0,1fr);border:1px solid rgba(227,184,95,.4);background:radial-gradient(circle at 18% 18%,rgba(227,184,95,.16),transparent 34%),linear-gradient(145deg,#151821,#0c0d12);box-shadow:0 32px 90px rgba(0,0,0,.4);overflow:hidden}
+  .atlanta-visual{position:relative;min-height:470px;border-right:1px solid var(--line);background:#05060a;overflow:hidden}
+  .atlanta-visual img{display:block;width:100%;height:100%;min-height:470px;object-fit:cover;object-position:center}
+  .atlanta-visual:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(5,6,10,.72),transparent 48%)}
+  .atlanta-date{position:absolute;z-index:2;left:24px;bottom:24px;padding:17px 20px;border:1px solid rgba(227,184,95,.52);background:rgba(8,9,13,.84);backdrop-filter:blur(12px);box-shadow:0 12px 36px rgba(0,0,0,.35)}
+  .atlanta-date span{display:block;color:var(--gold);font-size:11px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+  .atlanta-date strong{display:block;font:58px Georgia;line-height:.9;margin:10px 0 8px}
+  .atlanta-date small{display:block;color:#d7d0c4;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
   .atlanta-copy{padding:48px;display:flex;flex-direction:column;justify-content:center}
   .atlanta-city{color:var(--gold);font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin:0 0 14px}
   .atlanta-copy h3{font:clamp(42px,5vw,68px) Georgia;margin:0;line-height:1}
@@ -118,7 +123,7 @@ const sponsorStyles = `
   html[lang="ps"] .lang-ps,html[lang="fa"] .lang-fa{display:inline}
   html[dir="rtl"] .confirmed-sponsor-copy span,html[dir="rtl"] .atlanta-city{letter-spacing:0;text-transform:none}
   html[dir="rtl"] .sponsors-showcase h2,html[dir="rtl"] .upcoming-showcase h2{letter-spacing:0;line-height:1.15}
-  @media(max-width:820px){.atlanta-event-card{grid-template-columns:1fr}.atlanta-date{min-height:260px;border-right:0;border-bottom:1px solid var(--line)}.atlanta-meta{grid-template-columns:1fr}.atlanta-copy{padding:34px 24px}}
+  @media(max-width:820px){.atlanta-event-card{grid-template-columns:1fr}.atlanta-visual{min-height:360px;border-right:0;border-bottom:1px solid var(--line)}.atlanta-visual img{min-height:360px}.atlanta-meta{grid-template-columns:1fr}.atlanta-copy{padding:34px 24px}}
   @media(max-width:760px){.sponsor-list{grid-template-columns:1fr}.confirmed-sponsor{grid-template-rows:300px auto}.confirmed-sponsor-logo.light img{width:min(100%,280px)}.sponsors-showcase,.upcoming-showcase{width:min(100% - 28px,1180px);padding-bottom:88px}}
 </style>`;
 
@@ -135,8 +140,9 @@ const atlantaSection = `
     <span class="lang-fa">حیدر سلیم · کنسرت زنده در آتلانتا</span>
   </h2>
   <article class="atlanta-event-card">
-    <div class="atlanta-date">
-      <div><span>OCT</span><strong>24</strong><small>Saturday · 2026</small></div>
+    <div class="atlanta-visual">
+      <img src="${atlantaEvent.image}" alt="Haidar Salim performing live" loading="lazy" width="720" height="405">
+      <div class="atlanta-date"><span>OCT</span><strong>24</strong><small>Saturday · 2026</small></div>
     </div>
     <div class="atlanta-copy">
       <p class="atlanta-city">Chamblee · Georgia · USA</p>
