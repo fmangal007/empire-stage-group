@@ -130,9 +130,9 @@ const sponsorStyles = `
 const atlantaSection = `
 <section class="upcoming-showcase" id="atlanta" aria-labelledby="atlanta-title">
   <p class="eyebrow">
-    <span class="lang-en">Next stop · Atlanta</span>
-    <span class="lang-ps">راتلونکی تمځای · اتلانتا</span>
-    <span class="lang-fa">ایستگاه بعدی · آتلانتا</span>
+    <span class="lang-en">Upcoming Events</span>
+    <span class="lang-ps">راتلونکي پروګرامونه</span>
+    <span class="lang-fa">برنامه‌های آینده</span>
   </p>
   <h2 id="atlanta-title">
     <span class="lang-en">Haidar Salim. Live in Atlanta.</span>
@@ -246,7 +246,7 @@ export default {
       })
       .on("nav a.sponsor-nav", {
         element(element) {
-          element.before('<a href="#atlanta">Atlanta</a>', { html: true });
+          element.before('<a href="#atlanta">Upcoming Events</a>', { html: true });
         },
       })
       .on("section#sponsor", {
