@@ -1,3 +1,50 @@
+const eventDetails = {
+  eventbriteUrl: "https://www.eventbrite.com/e/naghma-live-concert-virginia-us-registration-1992980656794?aff=oddtdtcreator",
+  guestAddress: "18980 Upper Belmont Place, Leesburg, VA 20176",
+  mapQuery: "18980+Upper+Belmont+Place+Leesburg+VA+20176",
+  googleCalendarLocation: "18980%20Upper%20Belmont%20Place%2C%20Leesburg%2C%20VA%2020176",
+};
+
+const eventJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  name: "107th Independence Day of Afghanistan",
+  description: "A cultural celebration featuring live performances by Naghma Jan and Hasib Sepand.",
+  startDate: "2026-09-12T19:00:00-04:00",
+  endDate: "2026-09-12T23:00:00-04:00",
+  doorTime: "2026-09-12T18:45:00-04:00",
+  eventStatus: "https://schema.org/EventScheduled",
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  image: "/images/afghanistan-independence-day-2026-official-poster.jpeg",
+  location: {
+    "@type": "Place",
+    name: "National Conference Center",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "18980 Upper Belmont Place",
+      addressLocality: "Leesburg",
+      addressRegion: "VA",
+      postalCode: "20176",
+      addressCountry: "US",
+    },
+  },
+  performer: [
+    { "@type": "Person", name: "Naghma Jan" },
+    { "@type": "Person", name: "Hasib Sepand" },
+  ],
+  organizer: {
+    "@type": "Organization",
+    name: "Empire Stage Group LLC",
+    email: "info@empirestagegroup.com",
+    telephone: "+1-202-390-0424",
+  },
+  offers: {
+    "@type": "Offer",
+    url: eventDetails.eventbriteUrl,
+    availability: "https://schema.org/InStock",
+  },
+}, null, 2);
+
 const sponsorStyles = `
 <style>
   .sponsors-showcase{width:min(1180px,calc(100% - 40px));margin:auto;padding:20px 0 116px}
@@ -53,6 +100,31 @@ const sponsorSection = `
   </div>
 </section>`;
 
+function normalizeEventHtml(html) {
+  return html
+    .replaceAll(
+      "https://www.eventbrite.com/e/the-107th-independence-day-of-afghanistan-registration-1992980656794?aff=oddtdtcreator",
+      eventDetails.eventbriteUrl,
+    )
+    .replaceAll(
+      "National+Conference+Center+18665+NCC+Ring+Drive+Leesburg+VA+20176",
+      eventDetails.mapQuery,
+    )
+    .replaceAll(
+      "National%20Conference%20Center%2C%2018665%20NCC%20Ring%20Drive%2C%20Leesburg%2C%20VA%2020176",
+      eventDetails.googleCalendarLocation,
+    )
+    .replaceAll(
+      "18665 NCC Ring Drive, Leesburg, VA 20176",
+      eventDetails.guestAddress,
+    )
+    .replaceAll(
+      "20260912T230000Z/20260912T230000Z",
+      "20260912T230000Z/20260913T030000Z",
+    )
+    .replaceAll("7:00 PM", "6:45 PM");
+}
+
 export default {
   async fetch(request, env) {
     const response = await env.ASSETS.fetch(request);
@@ -62,10 +134,18 @@ export default {
       return response;
     }
 
+    const html = normalizeEventHtml(await response.text());
+    const normalizedResponse = new Response(html, response);
+
     return new HTMLRewriter()
       .on("head", {
         element(element) {
           element.append(sponsorStyles, { html: true });
+        },
+      })
+      .on('script[type="application/ld+json"]', {
+        element(element) {
+          element.setInnerContent(eventJsonLd);
         },
       })
       .on("section#sponsor", {
@@ -73,6 +153,6 @@ export default {
           element.before(sponsorSection, { html: true });
         },
       })
-      .transform(response);
+      .transform(normalizedResponse);
   },
 };

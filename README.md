@@ -9,10 +9,13 @@ Official event website for Empire Stage Group LLC.
 **107th Independence Day of Afghanistan**
 
 - Date: Saturday, September 12, 2026
-- Doors open: 7:00 PM
+- Event time: 7:00 PM–11:00 PM
+- Doors open: 6:45 PM
 - Venue: National Conference Center
-- Address: 18665 NCC Ring Drive, Leesburg, VA 20176
+- Guest address: 18980 Upper Belmont Place, Leesburg, VA 20176
 - Featured performers: Naghma Jan and Hasib Sepand
+
+Guest-facing time and location should stay aligned with the live Eventbrite listing.
 
 ## Local development
 
@@ -39,6 +42,8 @@ npm run audit
 
 The production website is static. It does not currently use a database, login system, API, or server-side form handler. Cloudflare security headers are defined in `public/_headers`.
 
+The Cloudflare Worker adds the sponsor showcase and normalizes the live event links, guest address, calendar duration, and structured event metadata before HTML is returned.
+
 ## Cloudflare deployment
 
 ```bash
@@ -51,6 +56,7 @@ Cloudflare settings:
 - Deploy command: `npx wrangler deploy`
 - Production branch: `main`
 - Root directory: leave blank
+- Unknown routes return a real 404 rather than the event homepage
 
 ## Event assets
 
